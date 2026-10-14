@@ -1,0 +1,37 @@
+from kivy.app import App
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+
+class MyApp(App):
+    def build(self):
+        layout = BoxLayout(
+            orientation="vertical",
+            padding=30,
+            spacing=20
+        )
+
+        self.message = Label(
+            text="Welcome!",
+            font_size="25sp"
+        )
+
+        open_btn = Button(text="OPEN")
+        open_btn.bind(on_press=self.open_app)
+
+        close_btn = Button(text="CLOSE")
+        close_btn.bind(on_press=self.close_app)
+
+        layout.add_widget(self.message)
+        layout.add_widget(open_btn)
+        layout.add_widget(close_btn)
+
+        return layout
+
+    def open_app(self, instance):
+        self.message.text = "App Opened!"
+
+    def close_app(self, instance):
+        App.get_running_app().stop()
+
+MyApp().run()
